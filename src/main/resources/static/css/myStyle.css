@@ -1,0 +1,74 @@
+html {
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+html {
+  font-size: 92.5%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body {
+  font-family: Lato;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #2b2b2b;
+  background-color: #ffffff;
+}
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+div {
+  display: block;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+thead {
+    display: table-header-group;
+}
+table {
+  max-width: 100%;
+  background-color: transparent;
+}
+th {
+  text-align: left;
+}
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.table thead > tr > th,
+.table tbody > tr > th,
+.table tfoot > tr > th,
+.table thead > tr > td,
+.table tbody > tr > td,
+.table tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.428571429;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+
+/* message banner */
+#error-Banner{position:absolute; top:0px; right: 10px; width:300px; z-index:10;  border-style: solid; border-color: coral;
+				border-radius; 20px; background-color:#ffe6e6}
+#info-Banner{position:absolute; top:0px; right: 10px; width:300px; height:65px; z-index:10;  border-style: solid; border-color: green;
+				border-radius; 20px; background-color:#ebfaeb}
+#warning-Banner{position:absolute; top:0px; right: 10px; width:300px; height:65px; z-index:10;  border-style: solid; border-color: #ff6600;
+				border-radius; 20px; background-color:#fff0e6}
+/* end message banner */
+
+/*admm new employee validation form*/
+/* #error_Fields{font-family: "Times New Roman", Times, serif; font-size: 1em} */
+				
+				
+				

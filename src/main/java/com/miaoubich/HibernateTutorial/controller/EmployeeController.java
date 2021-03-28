@@ -1,58 +1,78 @@
 package com.miaoubich.HibernateTutorial.controller;
 
+import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.miaoubich.HibernateTutorial.model.Designation;
 import com.miaoubich.HibernateTutorial.model.Employee;
+import com.miaoubich.HibernateTutorial.services.DesignationService;
 import com.miaoubich.HibernateTutorial.services.EmployeeServices;
 
 @Controller
 public class EmployeeController {
 
+	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+	
 	@Autowired
 	private EmployeeServices employeeServices;
+	@Autowired 
+	private DesignationService designationService;
 
-	private Employee employee;
-
+//	@GetMapping("/employees")
+//	public String homePage(Model model, Integer jobId) {
+//		model.addAttribute("Employees", employeeServices.getAllEmployees());
+//		return "index";
+//	}
+	
 	@GetMapping("/employees")
-	public String homePage(Model model) {
-
+	public String home(Model model, Integer jobId) {
+		List<Designation> listDesignation = designationService.getAllDesignations();
+		
+		model.addAttribute("jobs", listDesignation);
 		model.addAttribute("Employees", employeeServices.getAllEmployees());
-		return "index";
+		
+		return "employee";
 	}
 
-	@PostMapping("/emmployee/addNew")
-	public String addNewEmployee(Employee employee) {
+	@PostMapping("/employee/addNew")
+	public String addNewEmployee(@Valid @ModelAttribute(value="employee") Employee employee, BindingResult result) {
+		if(result.hasErrors()) {
+			logger.error("Validation errors while submitting add new employee form!");
+			return "employee";
+		}
 		employeeServices.addEmployee(employee);
 		return "redirect:/employees";
 	}
 
-	@GetMapping("/new/employee/form")
-	public String addEmployee(Model model) {
-		employee = new Employee();
-		model.addAttribute("employee", employee);
-		return "newEmployee";
-	}
-
-	@GetMapping("/blank/form")
-	public String blankForm(Model model) {
-
+	@GetMapping("/employee/addNew")
+	public String showAddNewEmployeeForm(Model model, Integer jobId) {
+		List<Designation> listDesignation = designationService.getAllDesignations();
+		
+		model.addAttribute("jobs", listDesignation);
 		model.addAttribute("Employees", employeeServices.getAllEmployees());
-		return "index";
+		
+		return "employee";
 	}
-
+	
 	@RequestMapping("/employee/findById")
 	@ResponseBody
-	public Optional<Employee> getEmployeeById(Long id) {
+	public Optional<Employee> getEmployeeById(Integer id, Model model) {
+		model.addAttribute("jobs",designationService.getAllDesignations());
 		return employeeServices.getEmployeeById(id);
 	}
 
@@ -62,25 +82,12 @@ public class EmployeeController {
 		return "redirect:/employees";
 	}
 
-	@GetMapping("/displayUpdateForm/{id}")
-	public String displateUpdateEmployeeForm(@PathVariable(value = "id") long id, Model model) {
-		//get employee by id
-		Optional<Employee> employee = employeeServices.getEmployeeById(id);
-		
-		//set employee as a model attribute to populate the form
-		model.addAttribute("employee", employee);
-		return "updateEmployee";
-	}
-
-	@RequestMapping(value = "/employee/delete", method = { RequestMethod.DELETE, RequestMethod.GET })
-	public String deleteEmployee(Long id) {
+	@RequestMapping(value = "/employee/delete/", method = { RequestMethod.DELETE, RequestMethod.GET })
+	public String deleteEmployee(Integer id) {
 		employeeServices.deleteById(id);
+		System.out.println("Deleted User!");
+//		model.addAttribute("employee", employee);
 		return "redirect:/employees";
 	}
 	
-	@GetMapping("/employee/delete/{id}")
-	public String deleteEmployee2(@PathVariable(value = "id") long id) {
-		employeeServices.deleteById(id);
-		return "redirect:/employees";
-	}
 }

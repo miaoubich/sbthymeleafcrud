@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<!-- font icon -->
+<link href="css/elegant-icons-style.css" rel="stylesheet" />
+<link href="css/font-awesome.min.css" rel="stylesheet" />
+<link href="css/myStyle.css" rel="stylesheet" />
+
+<title>Designation | List</title>
+
+</head>
+<body>
+
+	<div class="container">
+		<div class="row modal-header">
+			<div class="col-lg-3">
+				<div class="btn-group">
+					<a th:href="@{/employees}" class="btn btn-light"> <i
+						class="fas fa-angle-left"> Employee List</i>
+					</a>
+				</div>
+
+			</div>
+			<div class="col-lg-6 header3">
+				<!-- align="center" -->
+				<div class="h2 text-center">Designation list</div>
+			</div>
+			
+			<!-- message banner -->
+			<div class="col-lg-3 w3-container w3-center w3-animate-right">
+				<div id="error-Banner" style="color:red" th:if="${errorMessage}" th:text="${errorMessage}" th:class="${'alert ' + alertClass}"></div>
+				<div id="info-Banner" style="color:#248f24" th:if="${infoMessage}" th:text="${infoMessage}" th:class="${'alert ' + alertClass}"></div>
+				<div id="info-Banner" style="color:#248f24" th:if="${addMessage}" th:text="${addMessage}" th:class="${'alert ' + alertClass}"></div>
+				<div id="info-Banner" style="color:#248f24" th:if="${updateJobMessage}" th:text="${updateJobMessage}" th:class="${'alert ' + alertClass}"></div>
+				<div id="warning-Banner" style="color:#ff6600" th:if="${addMessageWarning}" th:text="${addMessageWarning}" th:class="${'alert ' + alertClass}"></div>
+			</div>
+		</div>
+
+		<!-- button to open popup -->
+		<div class="p-2 col-lg-3">
+			<header class="panel-heading">
+				<div class="btn-group">
+					<button type="button" class="btn btn-primary" data-toggle="modal"
+						data-target="#addDesignationModal">
+						<i class="icon_plus_alt2"></i> Job title
+					</button>
+				</div>
+			</header>
+		</div>
+
+		<!-- Jobs Table -->
+		<div align="center">
+			<table class="table table-stiped table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th>Id</th>
+						<th>Job name</th>
+						<th><i class="icon_cogs"></i> Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="designation:${designations}">
+						<td th:text=${designation.id}></td>
+						<td th:text=${designation.name}></td>
+						<td>
+							<div class="btn-group">
+								<a th:href="@{/job/findById/(id=${designation.id})}" id="editJobBtn" class="btn btn-primary"> <i
+									class="icon_pencil-edit"></i>
+								</a> <a th:href="@{/job/delete/{id}(id=${designation.id})}"
+									id="deleteJobButton" class="btn btn-danger"> <i
+									class="icon_close_alt2"></i>
+								</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- start popup modal add designation -->
+		<div class="modal fade" id="addDesignationModal">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<h5 class="modal-title">New Job Title</h5>
+					</div>
+
+					<div class="modal-body">
+						<form th:action="@{/designation/add}" id="addDesignationForm"
+							method="POST">
+							<input type="hidden" class="form-control" id="jobId" name="jobId" />
+							<div class="form-group">
+								<label for="designationName" class="col-form-label">Job
+									title:</label> <input type="text" class="form-control" id="jobtitle"
+									name="name" />
+							</div>
+
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">Create</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end popup modal add designation -->
+		
+		<!-- start popup modal update designation -->
+		<div class="modal fade" id="updateDesignationModal">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<h5 class="modal-title">Update Job Title</h5>
+					</div>
+
+					<div class="modal-body">
+						<form th:action="@{/job/update}" id="updateJobForm"
+							method="put">
+							<label for="editjobId" class="col-form-label">Job
+									ID:</label>
+							<input type="text" class="form-control" id="jobIdEdit" name="id" readOnly/>
+							<div class="form-group">
+								<label for="editDesignationName" class="col-form-label">Job
+									title:</label> <input type="text" class="form-control"
+									id="nameEdit" name="name" />
+							</div>
+
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">Update</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end popup modal update designation -->
+
+	</div>
+
+
+	<!-- javascripts -->
+	<script src="js/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+	<!-- customised scripts -->
+	<script src="js/myScript.js"></script>
+	<!-- fontawesome script -->
+	<script src='https://kit.fontawesome.com/a076d05399.js'
+		crossorigin='anonymous'></script>
+		
+</body>
+</html>

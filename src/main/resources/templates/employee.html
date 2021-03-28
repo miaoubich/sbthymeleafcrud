@@ -2,18 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>HR - System</title>
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css/}" />
-<!-- bootstrap theme -->
-<link href="css/bootstrap-theme.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<!-- customised style -->
+<link type="text/css" rel="stylesheet" href="css/myStyle.css" >
 <!-- font icon -->
 <link href="css/elegant-icons-style.css" rel="stylesheet" />
 <link href="css/font-awesome.min.css" rel="stylesheet" />
 
+<title>HR - System</title>
+
 </head>
 <body>
+
 	<div class="container">
 		<div align="center">
 			<h1>
@@ -21,22 +25,22 @@
 			</h1>
 		</div>
 
-		<!-- Buttons row -->
-		<div class="row">
-		
-			<!-- Add Employee Button  -->
+
+		<!-- buttons row -->
+		<div class="p-2 row">
+
+			<!-- Add employee popup window button -->
 			<div class="col-lg-3">
 				<header class="panel-heading">
 					<div class="btn-group">
 						<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#addModal">
-							<i class="icon_plus_alt2"></i> Employee From POPUP
+							data-target="#addEmployeeModal">
+							<i class="icon_plus_alt2"></i> Employee popoup
 						</button>
 					</div>
 				</header>
 			</div>
-			<!-- End Add Employee popup -->
-			
+
 			<!-- New window -->
 			<div class="col-lg-3">
 				<header class="panel-heading">
@@ -59,7 +63,6 @@
 				</header>
 			</div>
 		</div>
-
 		<!-- End Buttons row -->
 
 		<!-- Table of Employee -->
@@ -88,9 +91,10 @@
 									class="icon_pencil-edit"></i>
 								</a> <a href="#" id="detailsButton" class="btn btn-success"> <i
 									class="icon_document_alt"></i>
-								</a> <a th:href="@{/employee/delete/(id=${employee.id})}"
-									id="deleteButton" class="btn btn-danger"> <i
-									class="icon_close_alt2"></i>
+								</a> 
+								<a th:href="@{/employee/delete/(id=${employee.id})}"
+									id="deleteButton" class="btn btn-danger"> 
+									<i class="icon_close_alt2"></i>
 								</a>
 							</div>
 						</td>
@@ -99,7 +103,8 @@
 								<a th:href="@{/displayUpdateForm/{id}(id=${employee.id})}"
 									id="editBtn" class="btn btn-primary"> <i
 									class="icon_pencil-edit"></i>
-								</a> <a th:href="@{/employee/delete/{id}(id=${employee.id})}"
+								</a> 
+								<a th:href="@{/employee/delete2/{id}(id=${employee.id})}"
 									id="deleteButton" class="btn btn-danger"> <i
 									class="icon_close_alt2"></i>
 								</a>
@@ -111,21 +116,22 @@
 		</div>
 		<!-- End Table of Employee -->
 
-		<!-- popup modal Add New Employee -->
-		<div class="modal fade" id="addModal">
+		<!-- popup modal add Employee -->
+		<div class="modal fade" id="addEmployeeModal">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
-				
+
 					<div class="modal-header">
 						<h5 class="modal-title">New Employee</h5>
 					</div>
-					
+
 					<div class="modal-body">
-						<form th:action="@{/emmployee/addNew}" id="addEmployeeForm" method="post">
+						<form th:action="@{/employee/addNew}" th:object="${employee}" id="addEmployeeForm"
+							method="post">
 							<div class="form-group">
 								<label for="Firstname" class="col-form-label">Firstname:
-								</label> <input type="text" class="form-control" id="firstname"
-									name="firstname">
+								</label> 
+								<input type="text" class="form-control" name="firstname" id="firstname">
 							</div>
 							<div class="form-group">
 								<label for="lastname" class="col-form-label">Lastname: </label>
@@ -143,8 +149,8 @@
 								<select class="form-control" id="designationList"
 									name="designationid">
 									<option>-SELECT-</option>
-									<option th:each="designation : ${designations}"
-										th:value="${designation.id}" th:text="${designation.name}"></option>
+									<option th:each="job : ${jobs}" th:value="${job.id}"
+										th:text="${job.name}"></option>
 								</select>
 							</div>
 
@@ -161,38 +167,44 @@
 				</div>
 			</div>
 		</div>
-		<!-- end popup modal Add new Employee-->
 
-		<!-- popup modal Edit Employee -->
-		<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+		<!-- popup modal update Employee -->
+		<div class="modal fade" id="editEmployeeModal">
+			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
+
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Edit Employee</h5>
+						<h5 class="modal-title">Update Employee</h5>
 					</div>
+
 					<div class="modal-body">
-						<form th:action="@{/employee/update}" method="put">
-						<input type="hidden" class="form-control" id="idEdit"
-									name="id">
+						<form th:action="@{/employee/update}" id="updateEmployeeForm"
+							method="put">
+							<input type="hidden" id="idEdit" name="id">
 							<div class="form-group">
-								<label for="Firstname" class="col-form-label">Firstname:
+								<label for="editFirstname" class="col-form-label">Firstname:
 								</label> <input type="text" class="form-control" id="firstnameEdit"
 									name="firstname">
 							</div>
 							<div class="form-group">
-								<label for="lastname" class="col-form-label">Lastname: </label>
-								<input type="text" class="form-control" id="lastnameEdit"
+								<label for="editLastname" class="col-form-label">Lastname:
+								</label> <input type="text" class="form-control" id="lastnameEdit"
 									name="lastname">
 							</div>
 							<div class="form-group">
-								<label for="email" class="col-form-label">Email: </label> <input
+								<label for="editEmail" class="col-form-label">Email: </label> <input
 									type="text" class="form-control" id="emailEdit" name="email">
 							</div>
 							<div class="form-group">
 								<label for="designation" class="col-form-label">Designation:
-								</label> <input type="text" class="form-control" id="designationEdit"
-									name="designation">
+								</label>
+								<!-- <input type="text" class="form-control" id="designation" name="designation"> -->
+								<select class="form-control" id="designationList"
+									name="designationid">
+									<option>-SELECT-</option>
+									<option th:each="job : ${jobs}" th:value="${job.id}"
+										th:text="${job.name}"></option>
+								</select>
 							</div>
 
 							<div class="form-group">
@@ -208,22 +220,47 @@
 				</div>
 			</div>
 		</div>
-		<!-- end popup modal Edit new Employee-->
+		<!-- End popup update Employee modal -->
+
+		<!-- Model to confirm or cancel delete Employee -->
+		<div class="modal" id="deleteEmployeeModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Delete Employees</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete an employee?</p>
+					</div>
+					<div class="modal-footer">
+						<a href="" id="yesDeleteEmployee" class="btn btn-primary">Yes</a>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">No</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End of confirm delete employee -->
 
 	</div>
 
-<!-- 	<script -->
-<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<!-- 	<script -->
 
-		<!-- javascripts -->
-		<script src="js/jquery.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-		<script src="@{webjars/bootstrap/js/bootstrap.min.js}"></script>
-		<!-- fontawesome script -->
-		<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+	<!-- javascripts -->
+	<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+	<script src="js/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+	<!-- customised scripts -->
+	<script src="js/myScript.js"></script>
+	<!-- fontawesome script -->
+	<script src='https://kit.fontawesome.com/a076d05399.js'
+		crossorigin='anonymous'></script>
 		
-		<!-- Custom scripts -->
-		<script src="js/myScript.js"></script>
+		
 </body>
 </html>

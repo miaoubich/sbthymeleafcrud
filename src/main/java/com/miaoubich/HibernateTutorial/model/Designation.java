@@ -1,15 +1,14 @@
 package com.miaoubich.HibernateTutorial.model;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -19,28 +18,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name="Jobs")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Employees")
+@Table(name = "Jobs")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Employee {
+public class Designation {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="job_id")
 	private Integer id;
-	@NotBlank(message="Mandatory field!")
-	private String firstname;
-	@NotBlank(message="Mandatory field!")
-	private String lastname;
-	@NotEmpty(message="Mandatory field!")
-	@Email
-	private String email;
 	
-	@ManyToOne
-	@JoinColumn(name="designationid", nullable = true, insertable=false, updatable=false)
-	private Designation designation;
+//	@NotNull(message = "Mandatory Field!")
+	@Column(name = "job_name", length = 25, nullable = false, unique = true)
+	private String name;
 	
-	private Integer designationid;
+	@OneToMany(mappedBy = "designation") //, cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Employee> employees;
 	
 }
