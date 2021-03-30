@@ -33,7 +33,7 @@
 			</div>
 		</div>
 
-		<form th:action="@{/emmployee/addNew}" method="POST" th:object="${employee}">
+		<form th:action="@{/addNew}" method="POST" th:object="${employee}">
 			<!-- Hidden field to handle update -->
 			<input type="hidden" th:field="*{id}" />
 			<div class="form-group">

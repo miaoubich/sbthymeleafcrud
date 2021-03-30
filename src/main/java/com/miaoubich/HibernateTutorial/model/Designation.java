@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -31,7 +30,6 @@ public class Designation {
 	@Column(name="job_id")
 	private Integer id;
 	
-//	@NotNull(message = "Mandatory Field!")
 	@Column(name = "job_name", length = 25, nullable = false, unique = true)
 	private String name;
 	

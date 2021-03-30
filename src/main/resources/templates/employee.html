@@ -4,27 +4,42 @@
 <meta charset="utf-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
-<!-- customised style -->
-<link type="text/css" rel="stylesheet" href="css/myStyle.css" >
+
 <!-- font icon -->
 <link href="css/elegant-icons-style.css" rel="stylesheet" />
 <link href="css/font-awesome.min.css" rel="stylesheet" />
 
+<!-- customised style -->
+<link type="text/css" rel="stylesheet" href="css/myStyle.css">
 <title>HR - System</title>
 
 </head>
 <body>
 
 	<div class="container">
-		<div align="center">
-			<h1>
-				<i class="fas fa-tasks"></i> Management board
-			</h1>
-		</div>
+	
+		<div class="row pt-4">
+			<div align="center" class="col-lg-9">
+				<h1>
+					<i class="fas fa-tasks"></i> Management board
+				</h1>
+			</div>
 
+			<!-- message banner -->
+			<div class="col-lg-3 w3-container w3-center w3-animate-right">
+				<div id="info-Banner" align="center" style="color:#248f24" th:if="${addEmpMessage}" th:text="${addEmpMessage}"
+					th:class="${'alert ' + alertClass}"></div>
+				<div id="error-Banner" align="center" style="color:#ff6600" th:if="${emailExistsErrorMsg}" th:text="${emailExistsErrorMsg}"
+					th:class="${'alert ' + alertClass}"></div>	
+				<div id="info-Banner" align="center" style="color:#248f24" th:if="${updateEmpMessage}" th:text="${updateEmpMessage}"
+					th:class="${'alert ' + alertClass}"></div>	
+				<div id="info-Banner" align="center" style="color:#248f24" th:if="${deleteEmpMessage}" th:text="${deleteEmpMessage}"
+					th:class="${'alert ' + alertClass}"></div>		
+			</div>
+		</div>
 
 		<!-- buttons row -->
 		<div class="p-2 row">
@@ -62,6 +77,7 @@
 					</div>
 				</header>
 			</div>
+
 		</div>
 		<!-- End Buttons row -->
 
@@ -91,10 +107,9 @@
 									class="icon_pencil-edit"></i>
 								</a> <a href="#" id="detailsButton" class="btn btn-success"> <i
 									class="icon_document_alt"></i>
-								</a> 
-								<a th:href="@{/employee/delete/(id=${employee.id})}"
-									id="deleteButton" class="btn btn-danger"> 
-									<i class="icon_close_alt2"></i>
+								</a> <a th:href="@{/employee/delete/(id=${employee.id})}"
+									id="deleteButton" class="btn btn-danger"> <i
+									class="icon_close_alt2"></i>
 								</a>
 							</div>
 						</td>
@@ -103,8 +118,7 @@
 								<a th:href="@{/displayUpdateForm/{id}(id=${employee.id})}"
 									id="editBtn" class="btn btn-primary"> <i
 									class="icon_pencil-edit"></i>
-								</a> 
-								<a th:href="@{/employee/delete2/{id}(id=${employee.id})}"
+								</a> <a th:href="@{/employee/delete2/{id}(id=${employee.id})}"
 									id="deleteButton" class="btn btn-danger"> <i
 									class="icon_close_alt2"></i>
 								</a>
@@ -126,12 +140,12 @@
 					</div>
 
 					<div class="modal-body">
-						<form th:action="@{/employee/addNew}" th:object="${employee}" id="addEmployeeForm"
-							method="post">
+						<form th:action="@{/employee/addNew}" th:object="${employee}"
+							id="addEmployeeForm" method="post">
 							<div class="form-group">
 								<label for="Firstname" class="col-form-label">Firstname:
-								</label> 
-								<input type="text" class="form-control" name="firstname" id="firstname">
+								</label> <input type="text" class="form-control" name="firstname"
+									id="firstname">
 							</div>
 							<div class="form-group">
 								<label for="lastname" class="col-form-label">Lastname: </label>
@@ -146,16 +160,17 @@
 								<label for="designation" class="col-form-label">Designation:
 								</label>
 								<!-- 								<input type="text" class="form-control" id="designation" name="designation"> -->
-								<select class="form-control" id="designationList"
-									name="designationid">
+								<select class="form-control" name="designationid" id="designationList" required>
 									<option>-SELECT-</option>
-									<option th:each="job : ${jobs}" th:value="${job.id}"
-										th:text="${job.name}"></option>
+									<option th:each="job : ${jobs}" 
+											th:value="${job.id}"
+											th:text="${job.name}">
+									</option>
 								</select>
 							</div>
 
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary">Create</button>
+								<button type="submit" class="btn btn-primary" disabled >Create</button>
 							</div>
 
 						</form>
@@ -223,7 +238,8 @@
 		<!-- End popup update Employee modal -->
 
 		<!-- Model to confirm or cancel delete Employee -->
-		<div class="modal" id="deleteEmployeeModal" tabindex="-1" role="dialog">
+		<div class="modal" id="deleteEmployeeModal" tabindex="-1"
+			role="dialog">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -252,15 +268,16 @@
 	<!-- javascripts -->
 	<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 	<script src="js/jquery.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="js/jqueryValidator.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+	<!-- fontawesome script -->
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 	<!-- customised scripts -->
 	<script src="js/myScript.js"></script>
-	<!-- fontawesome script -->
-	<script src='https://kit.fontawesome.com/a076d05399.js'
-		crossorigin='anonymous'></script>
-		
-		
+	
 </body>
 </html>

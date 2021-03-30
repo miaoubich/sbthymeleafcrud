@@ -2,4 +2,11 @@
 	font-family: 'Times New Roman', Times, serif; 
 	font-size: 12px;
 	color: red;
-	}
+}
+/* message banner */
+#error-Banner{position:absolute; top:0px; right: 10px; width:300px; z-index:10;  border-style: solid; border-color: coral;
+				border-radius; 20px; background-color:#ffe6e6}
+#info-Banner{position:absolute; top:0px; right: 10px; width:300px; height:65px; z-index:10;  border-style: solid; border-color: green;
+				border-radius; 20px; background-color:#ebfaeb}
+#warning-Banner{position:absolute; top:0px; right: 10px; width:300px; height:65px; z-index:10;  border-style: solid; border-color: #ff6600;
+				border-radius; 20px; background-color:#fff0e6}

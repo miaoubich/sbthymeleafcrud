@@ -30,5 +30,9 @@ public class EmployeeServices {
 	public void deleteById(Integer id) {
 		employeeRepository.deleteById(id);
 	}
+
+	public int isEmailUsed(String email) {
+		return employeeRepository.isEmailExist(email);
+	}
 	
 }

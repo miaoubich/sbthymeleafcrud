@@ -59,7 +59,7 @@ th {
 }
 
 /* message banner */
-#error-Banner{position:absolute; top:0px; right: 10px; width:300px; z-index:10;  border-style: solid; border-color: coral;
+#error-Banner{position:absolute; top:0px; right: 10px; width:300px; height:65px; z-index:10;  border-style: solid; border-color: coral;
 				border-radius; 20px; background-color:#ffe6e6}
 #info-Banner{position:absolute; top:0px; right: 10px; width:300px; height:65px; z-index:10;  border-style: solid; border-color: green;
 				border-radius; 20px; background-color:#ebfaeb}
@@ -67,8 +67,8 @@ th {
 				border-radius; 20px; background-color:#fff0e6}
 /* end message banner */
 
-/*admm new employee validation form*/
-/* #error_Fields{font-family: "Times New Roman", Times, serif; font-size: 1em} */
+/*add new employee validation form*/
+.error{font-family:'Times New Roman', Times, serif; font-size:12px; color:red;}
 				
 				
 				

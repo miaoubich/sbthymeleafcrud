@@ -6,66 +6,75 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<!-- customised style -->
+<!-- customised style -->
 <link type="text/css" rel="stylesheet" href="css/myStyleForm.css" >
 <!-- font icon -->
-<link href="css/elegant-icons-style.css" rel="stylesheet" />
 <link href="css/font-awesome.min.css" rel="stylesheet" />
+
 </head>
 <body>
 
 	<div class="container">
 		<div class="row modal-header">
+
 			<div class="col-lg-3">
 				<div class="btn-group">
 					<a th:href="@{/employees}" class="btn btn-light"> <i
-						class='fas fa-angle-left'></i> Back
+						class='fas fa-angle-left'></i> Employee List
 					</a>
 				</div>
 			</div>
-			<div class="col-lg-9">
+
+			<div class="col-lg-6">
 				<h3 align="center">ADD Employee form</h3>
 			</div>
+
+			<!-- message banner -->
+			<div class="col-lg-3 w3-container w3-center w3-animate-right">
+				<!-- 				<div id="error-Banner" style="color:red" th:if="${errorMessage}" th:text="${errorMessage}" th:class="${'alert ' + alertClass}"></div> -->
+				<div id="error-Banner" style="color: #ff1a1a"
+					th:if="${emailExistsErrorMsg}" th:text="${emailExistsErrorMsg}"
+					th:class="${'alert ' + alertClass}"></div>
+			</div>
+
 		</div>
 
 		<div class="container pt-5 pl-5">
 			<form th:action="@{/addNew}" method="POST" th:object="${employee}">
 				<div class="form-group row">
 					<label for="Firstname" class="col-form-label col-sm-2">Firstname:
-					</label> 
-					<input type="text" class="form-control col-sm-6" id="firstname" th:field="*{firstname}" />
-					<div th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"
-					class="errorFields ml-auto mt-0" style="width:890px"></div>
+					</label> <input type="text" class="form-control col-sm-6" id="firstname"
+						th:field="*{firstname}" />
+					<div th:if="${#fields.hasErrors('firstname')}"
+						th:errors="*{firstname}" class="errorFields ml-auto mt-0"
+						style="width: 890px"></div>
 				</div>
 				<div class="form-group row">
 					<label for="lastname" class="col-form-label col-sm-2">Lastname:
-					</label> 
-					<input type="text" class="form-control col-sm-6" id="lastname" th:field="*{lastname}"/>
-					<div th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" 
-						class="errorFields ml-auto mt-0" style="width:890px"></div>
+					</label> <input type="text" class="form-control col-sm-6" id="lastname"
+						th:field="*{lastname}" />
+					<div th:if="${#fields.hasErrors('lastname')}"
+						th:errors="*{lastname}" class="errorFields ml-auto mt-0"
+						style="width: 890px"></div>
 				</div>
 				<div class="form-group row">
 					<label for="email" class="col-form-label col-sm-2">Email: </label>
-					<input type="text" class="form-control col-sm-6" id="email" th:field="*{email}"/>
-					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" 
-						class="errorFields ml-auto mt-0" style="width:890px"></div>
+					<input type="text" class="form-control col-sm-6" id="email"
+						th:field="*{email}" />
+					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+						class="errorFields ml-auto mt-0" style="width: 890px"></div>
 				</div>
 
 				<div class="form-group row">
-					<label class="col-form-label col-sm-2">Designation:</label> 
-					<select name="designationid" class="form-control col-sm-4">
-<!-- 						<th:block th:each="employee : ${employees}"> -->
-							<option th:each="job : ${designations}"
-									th:value="${job.id}" 
-									th:text="${job.name}"
-									>
-							</option>
-<!-- 						</th:block> -->
-					</select> 
+					<label class="col-form-label col-sm-2">Designation:</label> <select
+						name="designationid" class="form-control col-sm-4">
+						<option th:each="job : ${designations}" th:value="${job.id}"
+							th:text="${job.name}"></option>
+					</select>
 				</div>
-				
+
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary btn-block">Create</button>
+					<button type="submit" class="btn btn-primary btn-block col-sm-8">Create</button>
 				</div>
 
 			</form>
@@ -76,6 +85,10 @@
 	<script src="js/jquery.js"></script>
 	<!-- bootstrap -->
 	<script src="js/bootstrap.min.js"></script>
+	
+	<!-- customised scripts -->
+	<script src="js/myScript.js"></script>
+	
 	<!-- fontawesome script -->
 	<script src='https://kit.fontawesome.com/a076d05399.js'
 		crossorigin='anonymous'></script>
