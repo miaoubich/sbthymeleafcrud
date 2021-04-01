@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.miaoubich.HibernateTutorial.model.Designation;
@@ -77,6 +79,19 @@ public class EmpController {
 		return "updateEmployee";
 	}
 
+	@GetMapping("/employee/detail/{id}")
+	public String showEmployeeDetail(@PathVariable(value = "id") Integer id, Model model) {
+		
+		Optional<Employee> employee = employeeServices.getEmployeeById(id);
+		List<Designation> jobsList = designationService.getAllDesignations();
+		
+		model.addAttribute("employee", employee);
+		model.addAttribute("jobs", jobsList);
+		
+		
+		return "employeeDetailsCard";
+	}
+	
 	@RequestMapping("/employee/delete2/{id}")
 	public String deleteEmployee2(@PathVariable(value = "id") Integer id, RedirectAttributes redirectAttributes) {
 		employeeServices.deleteById(id);

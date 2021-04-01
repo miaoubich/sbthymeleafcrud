@@ -25,7 +25,6 @@ $(function() {
 		var href = $(this).attr('href');
 
 		$.get(href, function(job, status) {
-			$('#jobIdEdit').val(job.id);
 			$('#nameEdit').val(job.name);
 		});
 		$('#updateDesignationModal').modal();
