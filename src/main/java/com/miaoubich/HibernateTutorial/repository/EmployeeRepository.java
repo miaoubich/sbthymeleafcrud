@@ -12,4 +12,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	@Query("SELECT COUNT(*) FROM employees WHERE email=?1")
 	int isEmailExist(String email);
 
+	public Employee findByFirstname(String fname);
+
+	@Query("SELECT id FROM employees WHERE firstname=?1")
+	Integer getEmployeeIdByFirstname(String firstname);
+
+	Employee findEmployeeById(Integer id);
+
 }
