@@ -89,7 +89,7 @@ public class EmpController {
 		model.addAttribute("jobs", jobsList);
 		
 		
-		return "employeeDetailsCard";
+		return "employeeDetails";
 	}
 	
 	@RequestMapping("/employee/delete2/{id}")
